@@ -33,3 +33,5 @@
 
 # Test
 .rspec
+
+.bashrc
