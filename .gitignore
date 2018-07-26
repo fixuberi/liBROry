@@ -35,3 +35,4 @@
 .rspec
 
 .bashrc
+/spec/examples.txt
