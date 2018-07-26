@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'cloudinary', require: false
 gem 'activestorage-cloudinary-service'
+gem 'devise'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
