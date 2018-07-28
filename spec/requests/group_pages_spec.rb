@@ -28,4 +28,31 @@ RSpec.describe "Groups Pages" do
       end
     end
   end
+
+  describe "Group page" do
+    let!(:author) { FactoryGirl.create(:author) }
+    let! (:group) { FactoryGirl.create(:group) }
+    before do
+      Book.create(title:'a', authors:[author], groups:[group])
+          .cover.attach(io: File.open(Rails.root.join 'spec/support/cover.jpg'),
+                        filename: 'cover.jpg',
+                        content_type: 'image/jpg')
+      visit group_path(group)
+    end
+
+    it { should have_content group.name }
+
+    describe "should display books in that group" do
+      it "with book's title" do
+        group.books.each do |book|
+          expect(page).to have_content(book.title)
+        end
+      end
+      it "with book's cover" do
+        group.books.each do |book|
+          expect(page).to have_css("img[alt='#{book.title}']")
+        end
+      end
+    end
+  end
 end

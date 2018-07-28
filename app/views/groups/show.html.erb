@@ -1,2 +1,7 @@
-<h1>Groups#show</h1>
-<p>Find me in app/views/groups/show.html.erb</p>
+<h1><%= @group.name %></h1>
+<%= render 'shared/edit_link', item: @group %>
+<%= render 'shared/delete_link', item: @group %>
+
+<ol class="posts" >
+  <%= render @books %>
+</ol>
