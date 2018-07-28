@@ -55,4 +55,20 @@ RSpec.describe "Groups Pages" do
       end
     end
   end
+
+  describe "Groups list page" do
+    let!(:group1) { FactoryGirl.create(:group) }
+    let!(:group2) { FactoryGirl.create(:group) }
+    before { visit groups_path }
+
+    describe "click New group link" do
+      before { click_link 'New group' }
+      it { should have_current_path(new_group_path) }
+    end
+
+    describe "should have existing group names" do
+      it { should have_content group1.name }
+      it { should have_content group2.name }
+    end
+  end
 end

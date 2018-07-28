@@ -61,8 +61,14 @@ RSpec.describe "Author pages" do
     let!(:author2) { FactoryGirl.create(:author) }
     before { visit authors_path }
 
-    it { should have_content author1.name }
-    it { should have_content author2.name }
+    describe "click New author link" do
+      before { click_link 'New author' }
+      it { should have_current_path(new_author_path) }
+    end
+    describe "should have existing author names" do
+      it { should have_content author1.name }
+      it { should have_content author2.name }
+    end
   end
 
   describe "Author destruction" do

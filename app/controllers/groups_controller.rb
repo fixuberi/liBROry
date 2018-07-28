@@ -22,6 +22,7 @@ class GroupsController < ApplicationController
   end
 
   def index
+    @groups = Group.all
   end
 
   private
