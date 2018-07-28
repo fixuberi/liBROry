@@ -1,2 +1,7 @@
 <h1><%= @author.name %></h1>
-<p>Find me in app/views/authors/show.html.erb</p>
+<%= render 'shared/edit_link', item: @author %>
+<%= render 'shared/delete_link', item: @author %>
+
+<ol class="posts" >
+  <%= render @books %>
+</ol>

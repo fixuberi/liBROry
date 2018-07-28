@@ -22,12 +22,94 @@ RSpec.describe "Author pages" do
     end
 
     describe "with valid information" do
-      before { fill_in 'author_name', with: 'Adolph' }
+      before { fill_in 'author_name', with: Faker::Name.name }
       it "should create author" do
         expect{ click_button "Create author" }.to change(Author, :count).by(1)
       end
     end
   end
 
+  describe "Author profile" do
+    let!(:author) { FactoryGirl.create(:author) }
+    let! (:group) { FactoryGirl.create(:group) }
+    before do
+      Book.create(title:'a', authors:[author], groups:[group])
+          .cover.attach(io: File.open(Rails.root.join 'spec/support/cover.jpg'),
+                        filename: 'cover.jpg',
+                        content_type: 'image/jpg')
+      visit author_path(author)
+    end
 
+    it { should have_content author.name }
+
+    describe "should display the author's books" do
+        it "with book's title" do
+          author.books.each do |book|
+            expect(page).to have_content(book.title)
+          end
+        end
+        it "with book's cover" do
+          author.books.each do |book|
+            expect(page).to have_css("img[alt='#{book.title}']")
+          end
+        end
+    end
+  end
+
+  describe "Authors list page" do
+    let!(:author1) { FactoryGirl.create(:author) }
+    let!(:author2) { FactoryGirl.create(:author) }
+    before { visit authors_path }
+
+    it { should have_content author1.name }
+    it { should have_content author2.name }
+  end
+
+  describe "Author destruction" do
+    let!(:author) { FactoryGirl.create(:author) }
+    before { visit author_path(author) }
+
+    it { should have_link "delete" }
+    it "should destroy author" do
+        expect {click_link "delete"}.to change(Author, :count).by(-1)
+    end
+  end
+
+  describe "Author editing" do
+    let!(:author) { FactoryGirl.create(:author) }
+    before { visit edit_author_path(author) }
+
+    describe "click edit_link" do
+      before do
+        visit author_path(author)
+        click_link 'edit'
+      end
+      it { should have_current_path(edit_author_path(author)) }
+    end
+
+    describe "with valid name" do
+      let(:valid_name) { Faker::Book.author }
+      before { post_author_with valid_name }
+
+      it "should update author" do
+        expect(author.reload.name).to eq valid_name
+      end
+    end
+
+    describe "with invalid name" do
+
+      describe "empty name" do
+        before { post_author_with '' }
+        it { should have_error_message "error" }
+        it { expect(author.reload.name).not_to be_empty }
+      end
+
+      describe "name is too long" do
+        let(:long_name) { Faker::String.random(26) }
+        before { post_author_with long_name }
+        it { should have_error_message "error" }
+        it { expect(author.reload.name).not_to eq long_name  }
+      end
+    end
+  end
 end

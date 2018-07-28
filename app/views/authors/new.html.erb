@@ -1,9 +1,2 @@
 <h1>Let's create new author!</h1>
-<%= form_for(@author) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-
-  <%= f.submit "Create author", class: "btn btn-large btn-primary" %>
-<% end %>
+<%= render 'shared/author_form', action: "Create author" %>

@@ -5,4 +5,17 @@ module RequestHelper
     fill_in 'Password', with: user.password
     click_button "Log in"
   end
+
+  def post_author_with(name)
+    fill_in 'author_name', with: name
+    click_button "Update author"
+  end
+
+
+end
+
+RSpec::Matchers.define :have_error_message do |message|
+  match do |page|
+    expect(page).to have_selector('div.alert.alert-danger', text: message)
+  end
 end
