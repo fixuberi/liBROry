@@ -6,12 +6,15 @@ module RequestHelper
     click_button "Log in"
   end
 
-  def post_author_with(name)
+  def update_author_with(name)
     fill_in 'author_name', with: name
     click_button "Update author"
   end
 
-
+  def update_group_with(name)
+    fill_in 'group_name', with: name
+    click_button "Update group"
+  end
 end
 
 RSpec::Matchers.define :have_error_message do |message|

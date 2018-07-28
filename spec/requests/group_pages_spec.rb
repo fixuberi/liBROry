@@ -81,4 +81,42 @@ RSpec.describe "Groups Pages" do
         expect {click_link "delete"}.to change(Group, :count).by(-1)
     end
   end
+
+  describe "Group editing" do
+    let!(:group) { FactoryGirl.create(:group) }
+    before { visit edit_group_path(group) }
+
+    describe "click edit_link" do
+      before do
+        visit group_path(group)
+        click_link 'edit'
+      end
+      it { should have_current_path(edit_group_path(group)) }
+    end
+
+    describe "with valid name" do
+      let(:valid_name) { Faker::Book.genre }
+      before { update_group_with valid_name }
+
+      it "should update group" do
+        expect(group.reload.name).to eq valid_name
+      end
+    end
+
+    describe "with invalid name" do
+
+      describe "empty name" do
+        before { update_group_with '' }
+        it { should have_error_message "error" }
+        it { expect(group.reload.name).not_to be_empty }
+      end
+
+      describe "name is too long" do
+        let(:long_name) { Faker::String.random(26) }
+        before { update_group_with long_name }
+        it { should have_error_message "error" }
+        it { expect(group.reload.name).not_to eq long_name  }
+      end
+    end
+  end
 end

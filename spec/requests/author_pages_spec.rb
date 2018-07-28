@@ -95,7 +95,7 @@ RSpec.describe "Author pages" do
 
     describe "with valid name" do
       let(:valid_name) { Faker::Book.author }
-      before { post_author_with valid_name }
+      before { update_author_with valid_name }
 
       it "should update author" do
         expect(author.reload.name).to eq valid_name
@@ -105,14 +105,14 @@ RSpec.describe "Author pages" do
     describe "with invalid name" do
 
       describe "empty name" do
-        before { post_author_with '' }
+        before { update_author_with '' }
         it { should have_error_message "error" }
         it { expect(author.reload.name).not_to be_empty }
       end
 
       describe "name is too long" do
         let(:long_name) { Faker::String.random(26) }
-        before { post_author_with long_name }
+        before { update_author_with long_name }
         it { should have_error_message "error" }
         it { expect(author.reload.name).not_to eq long_name  }
       end
