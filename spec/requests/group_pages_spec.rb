@@ -71,4 +71,14 @@ RSpec.describe "Groups Pages" do
       it { should have_content group2.name }
     end
   end
+
+  describe "Group destruction" do
+    let!(:group) { FactoryGirl.create(:group) }
+    before { visit group_path(group) }
+
+    it { should have_link "delete" }
+    it "should destroy group" do
+        expect {click_link "delete"}.to change(Group, :count).by(-1)
+    end
+  end
 end
