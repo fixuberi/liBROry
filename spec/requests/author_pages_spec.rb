@@ -111,7 +111,7 @@ RSpec.describe "Author pages" do
       end
 
       describe "name is too long" do
-        let(:long_name) { Faker::String.random(26) }
+        let(:long_name) { 'x'*26 }
         before { update_author_with long_name }
         it { should have_error_message "error" }
         it { expect(author.reload.name).not_to eq long_name  }

@@ -12,7 +12,7 @@ FactoryGirl.define do
   end
 
   factory :group do
-    name Faker::Book.author
+    name Faker::Book.genre
   end
 
   factory :book do

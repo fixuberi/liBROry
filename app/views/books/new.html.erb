@@ -1,0 +1,18 @@
+<h1>Let's create new book!</h1>
+<%= form_for(@book) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label  :cover %>
+  <%= f.file_field :cover %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :authors %>
+  <%= f.collection_select :authors, Author.all, :id,:name %>
+
+  <%= f.label :groups %>
+  <%= f.collection_select :groups, Group.all, :id,:name %>
+
+  <%= f.submit "Create book", class: "btn btn-large btn-primary" %>
+<% end %>

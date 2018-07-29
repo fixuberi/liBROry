@@ -8,6 +8,9 @@ RSpec.describe Book do
     @book = Book.new(title:'very awesome title',
                      authors: [author],
                      groups: [group])
+    @book.cover.attach(io: File.open(Rails.root.join 'spec/support/cover.jpg'),
+                       filename: 'cover.jpg',
+                       content_type: 'image/jpg')
   end
 
 
@@ -36,5 +39,21 @@ RSpec.describe Book do
     before { @book.groups = [] }
     it { should_not be_valid }
   end
+
+  describe "cover attachment" do
+    describe "without cover image" do
+      before { @book.cover.purge }
+      it { should_not be_valid }
+    end
+    describe "when attachment type is wrong(not JPEG or PNG)" do
+      before do
+        @book.cover.purge
+        @book.cover.attach(io: File.open(Rails.root.join 'spec/rails_helper.rb'),
+                       filename: 'rails_helper.rb')
+      end
+      it { should_not be_valid }
+    end
+  end
+
 
 end

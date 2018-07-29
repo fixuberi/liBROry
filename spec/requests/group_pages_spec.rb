@@ -112,7 +112,7 @@ RSpec.describe "Groups Pages" do
       end
 
       describe "name is too long" do
-        let(:long_name) { Faker::String.random(26) }
+        let(:long_name) { 'x'*26 }
         before { update_group_with long_name }
         it { should have_error_message "error" }
         it { expect(group.reload.name).not_to eq long_name  }

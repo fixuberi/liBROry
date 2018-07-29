@@ -12,9 +12,11 @@ require 'support/utilities'
 require 'capybara/rspec'
 require 'capybara/rails'
 
+
 Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, browser: :firefox)
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
+
 
 ActiveRecord::Migration.maintain_test_schema!
 
