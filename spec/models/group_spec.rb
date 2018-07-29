@@ -13,7 +13,7 @@ RSpec.describe Group do
   end
 
   describe "with name that is too long" do
-    before { @group.name = 'x'*26 }
+    before { @group.name = 'x'*51 }
     it { should_not be_valid }
   end
 end

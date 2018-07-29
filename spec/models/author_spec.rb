@@ -13,7 +13,7 @@ RSpec.describe Author  do
   end
 
   describe "with name that is too long" do
-    before { @author.name = 'x'*26 }
+    before { @author.name = 'x'*51 }
     it { should_not be_valid }
   end
 

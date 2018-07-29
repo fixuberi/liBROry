@@ -33,10 +33,7 @@ RSpec.describe "Groups Pages" do
     let!(:author) { FactoryGirl.create(:author) }
     let! (:group) { FactoryGirl.create(:group) }
     before do
-      Book.create(title:'a', authors:[author], groups:[group])
-          .cover.attach(io: File.open(Rails.root.join 'spec/support/cover.jpg'),
-                        filename: 'cover.jpg',
-                        content_type: 'image/jpg')
+      FactoryGirl.create(:book, authors: [author], groups: [group])
       visit group_path(group)
     end
 
@@ -112,7 +109,7 @@ RSpec.describe "Groups Pages" do
       end
 
       describe "name is too long" do
-        let(:long_name) { 'x'*26 }
+        let(:long_name) { 'x'*51 }
         before { update_group_with long_name }
         it { should have_error_message "error" }
         it { expect(group.reload.name).not_to eq long_name  }

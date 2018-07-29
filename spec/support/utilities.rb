@@ -15,6 +15,10 @@ module RequestHelper
     fill_in 'group_name', with: name
     click_button "Update group"
   end
+
+  def check_in(object)
+    check 'book_'+object.class.to_s.downcase.pluralize+"_#{object.id}"
+  end
 end
 
 RSpec::Matchers.define :have_error_message do |message|

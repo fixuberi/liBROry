@@ -27,7 +27,7 @@ RSpec.describe Book do
   end
 
   describe "with title that is too long" do
-    before { @book.title = 'x'*26 }
+    before { @book.title = 'x'*51 }
   end
 
   describe "without any author" do

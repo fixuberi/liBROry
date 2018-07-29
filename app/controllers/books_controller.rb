@@ -3,6 +3,7 @@ class BooksController < ApplicationController
   end
 
   def show
+    @book = Book.find(params[:id])
   end
 
   def edit
@@ -14,8 +15,8 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    @book.authors << Author.find(associated_authors)
-    @book.groups << Group.find(associated_groups)
+    @book.authors << Author.find(associated_author_ids)
+    @book.groups << Group.find(associated_group_ids)
 
     if @book.save
       flash[:notice] = "New book was created"
@@ -31,12 +32,12 @@ class BooksController < ApplicationController
       params.require(:book).permit(:title, :cover)
     end
 
-    def associated_authors
-      params.require(:book).permit(:authors)[:authors].to_i
+    def associated_author_ids
+      params.require(:book).permit(authors: [])[:authors].reject(&:empty?)
     end
 
-    def associated_groups
-      params.require(:book).permit(:groups)[:groups].to_i
+    def associated_group_ids
+      params.require(:book).permit(groups: [])[:groups].reject(&:empty?)
     end
 
 

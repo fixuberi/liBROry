@@ -7,6 +7,8 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'factory_girl'
 require 'support/utilities'
+require 'database_cleaner'
+
 
 # Capybara integration
 require 'capybara/rspec'
@@ -32,6 +34,18 @@ RSpec.configure do |config|
   # factory girl
   config.before(:all) do
     FactoryGirl.reload
+  end
+
+  # Database Cleaner
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+  config.after(:each) do
+    DatabaseCleaner.clean
   end
 
   config.include FactoryGirl::Syntax::Methods

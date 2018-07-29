@@ -9,10 +9,20 @@
   <%= f.text_field :title %>
 
   <%= f.label :authors %>
-  <%= f.collection_select :authors, Author.all, :id,:name %>
+  <%= f.collection_check_boxes  :authors, Author.all, :id,:name do |b| %>
+    <div class="collection-check-box">
+      <%= b.check_box %>
+      <%= b.label %>
+    </div>
+  <% end %>
 
   <%= f.label :groups %>
-  <%= f.collection_select :groups, Group.all, :id,:name %>
+  <%= f.collection_check_boxes :groups, Group.all, :id,:name do  |b| %>
+    <div class="collection-check-box">
+      <%= b.check_box %>
+      <%= b.label %>
+    </div>
+  <% end %>
 
   <%= f.submit "Create book", class: "btn btn-large btn-primary" %>
 <% end %>

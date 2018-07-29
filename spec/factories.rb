@@ -8,17 +8,16 @@ FactoryGirl.define do
   end
 
   factory :author do
-    name Faker::Book.author
+    name Faker::Book.author.gsub(/\W/, '')
   end
 
   factory :group do
-    name Faker::Book.genre
+    name Faker::Book.genre.gsub(/\W/, '')
   end
 
   factory :book do
-    title Faker::Book.title
+    title Faker::Book.title.gsub(/\W/, '')
     cover  { fixture_file_upload(Rails.root.join('spec/support/cover.jpg'), 'image/jpg') }
-    association author
   end
 end
 

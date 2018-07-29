@@ -33,10 +33,7 @@ RSpec.describe "Author pages" do
     let!(:author) { FactoryGirl.create(:author) }
     let! (:group) { FactoryGirl.create(:group) }
     before do
-      Book.create(title:'a', authors:[author], groups:[group])
-          .cover.attach(io: File.open(Rails.root.join 'spec/support/cover.jpg'),
-                        filename: 'cover.jpg',
-                        content_type: 'image/jpg')
+      FactoryGirl.create(:book, authors: [author], groups: [group])
       visit author_path(author)
     end
 
@@ -111,7 +108,7 @@ RSpec.describe "Author pages" do
       end
 
       describe "name is too long" do
-        let(:long_name) { 'x'*26 }
+        let(:long_name) { 'x'*51 }
         before { update_author_with long_name }
         it { should have_error_message "error" }
         it { expect(author.reload.name).not_to eq long_name  }
