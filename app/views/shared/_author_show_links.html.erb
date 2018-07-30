@@ -1,0 +1,3 @@
+<% book.authors.each do |author| %>
+  <span class="show_link"><%= link_to author.name, author_path(author) %></span>
+<% end %>

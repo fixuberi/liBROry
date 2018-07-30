@@ -64,6 +64,20 @@ RSpec.describe "Books page:" do
         end
       end
     end
+  end
 
+  describe "Books list page" do
+    let!(:book1) { FactoryGirl.create(:book, authors: [author], groups: [group]) }
+    let!(:book2) { FactoryGirl.create(:book, authors: [author], groups: [group]) }
+    before { visit books_path }
+
+    describe "click New book link" do
+      before { click_link 'New book' }
+      it { should have_current_path(new_book_path) }
+    end
+    describe "should have existing book names" do
+      it { should have_content book1.title }
+      it { should have_content book2.title }
+    end
   end
 end

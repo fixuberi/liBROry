@@ -1,18 +1,8 @@
 <%= render 'shared/edit_link', item: @book %>|
 <%= render 'shared/delete_link', item: @book %>
 <br>
-<%= image_tag @book.cover, alt: @book.title, class:"" %>
 <h1><%= @book.title %></h1>
-<h1>Authors</h1>
-<ol>
-  <% @book.authors.each do |author| %>
-      <li><%= link_to author.name, author_path(author) %></li>
-  <% end %>
-</ol>
+<%= image_tag @book.cover, alt: @book.title, class:"cover" %>
 
-<h1>Groups</h1>
-<ol>
-  <% @book.groups.each do |group| %>
-    <li><%= link_to group.name, group_path(group) %></li>
-  <% end %>
-</ol>
+<span>Authors: <%= render 'shared/author_show_links', book: @book %></span>
+<span>Groups: <%= render 'shared/group_show_links', book: @book %></span>
