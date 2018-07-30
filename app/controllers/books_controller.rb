@@ -27,6 +27,14 @@ class BooksController < ApplicationController
     end
   end
 
+  def destroy
+    @book = Book.find(params[:id])
+    if @book.destroy
+      flash[:notice] = "Book deleted"
+      redirect_to root_path
+    end
+  end
+
   private
 
     def book_params

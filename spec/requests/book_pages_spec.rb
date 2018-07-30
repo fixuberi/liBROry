@@ -80,4 +80,15 @@ RSpec.describe "Books page:" do
       it { should have_content book2.title }
     end
   end
+
+
+  describe "Book destruction" do
+    let!(:book) { FactoryGirl.create(:book, authors: [author], groups: [group]) }
+    before { visit book_path(book) }
+
+    it { should have_link "delete" }
+    it "should destroy book" do
+        expect {click_link "delete"}.to change(Book, :count).by(-1)
+    end
+  end
 end
