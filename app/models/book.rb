@@ -5,25 +5,20 @@ class Book < ApplicationRecord
   has_one_attached :cover
 
   validates :title, presence: true, length: { maximum: 50 }
-  validates_presence_of :groups
-  validates_presence_of :authors
+  validates :groups, presence: true
+  validates :authors, presence: true
 
-  validate :cover_presence
   validate :correct_cover_type
 
   private
 
-    def cover_presence
-      unless cover.attached?
-        errors.add(:cover, 'Must have an image attached')
-      end
+  def correct_cover_type
+    if cover.attached? && !cover.content_type.in?(%w(image/jpeg image/png))
+      errors.add(:cover, 'Image must be a JPEG or PNG')
+    elsif cover.attached? == false
+      errors.add(:cover, 'Must have an image attached')
     end
-
-    def correct_cover_type
-      if cover.attached? && !cover.content_type.in?(%w(image/jpeg image/png))
-        errors.add(:cover, 'Image must be a JPEG or PNG')
-      end
-    end
+  end
 
 
 end

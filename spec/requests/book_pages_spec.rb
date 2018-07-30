@@ -91,4 +91,62 @@ RSpec.describe "Books page:" do
         expect {click_link "delete"}.to change(Book, :count).by(-1)
     end
   end
+
+  describe "Book editing" do
+    let!(:book) { FactoryGirl.create(:book, authors: [author], groups: [group]) }
+    before { visit edit_book_path(book) }
+
+    describe "click edit_link" do
+      before do
+        visit book_path(book)
+        click_link 'edit'
+      end
+      it { should have_current_path(edit_book_path(book)) }
+    end
+
+    describe "with valid info" do
+      let(:valid_title) { Faker::Book.title }
+      before { update_book_with valid_title }
+
+      it "should update book" do
+        expect(book.reload.title).to eq valid_title
+      end
+    end
+
+    describe "with invalid info" do
+
+      describe "empty title" do
+        before { update_book_with '' }
+        it { should have_error_message "error" }
+        it { expect(book.reload.title).not_to be_empty }
+      end
+
+      describe "title is too long" do
+        let(:long_title) { 'x'*51 }
+        before { update_book_with long_title }
+        it { should have_error_message "error" }
+        it { expect(book.reload.title).not_to eq long_title  }
+      end
+
+      describe "with invalid attachment" do
+        it "should not be updated"
+      end
+
+      describe "without any author" do
+        before do
+          book.authors.each { |author| check_out author }
+          click_button 'Update book'
+        end
+        it { expect(book.reload.authors.count).not_to eq 0 }
+      end
+
+      describe "without any group" do
+        before do
+          book.groups.each { |group| check_out group }
+          click_button 'Update book'
+        end
+        it { expect(book.reload.groups.count).not_to eq 0 }
+      end
+    end
+  end
 end

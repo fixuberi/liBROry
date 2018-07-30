@@ -8,6 +8,18 @@ class BooksController < ApplicationController
   end
 
   def edit
+    @book = Book.find(params[:id])
+  end
+
+  def update
+    @book = Book.find(params[:id])
+
+    if @book.update(book_params)
+      redirect_to book_path(@book)
+      flash[:notice] = "Book successfully updated"
+    else
+      render "edit"
+    end
   end
 
   def new
@@ -16,8 +28,6 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    @book.authors << Author.find(associated_author_ids)
-    @book.groups << Group.find(associated_group_ids)
 
     if @book.save
       flash[:notice] = "New book was created"
@@ -38,17 +48,7 @@ class BooksController < ApplicationController
   private
 
     def book_params
-      params.require(:book).permit(:title, :cover)
+      params.require(:book).permit(:title, :cover, author_ids: [], group_ids:[])
     end
-
-    def associated_author_ids
-      params.require(:book).permit(authors: [])[:authors].reject(&:empty?)
-    end
-
-    def associated_group_ids
-      params.require(:book).permit(groups: [])[:groups].reject(&:empty?)
-    end
-
-
 
 end

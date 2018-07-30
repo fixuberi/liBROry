@@ -16,8 +16,18 @@ module RequestHelper
     click_button "Update group"
   end
 
+  def update_book_with(title)
+    fill_in 'book_title', with: title
+    click_button "Update book"
+  end
+
   def check_in(object)
-    check 'book_'+object.class.to_s.downcase.pluralize+"_#{object.id}"
+    check 'book_'+object.class.to_s.downcase+"_ids_#{object.id}"
+  end
+
+  def check_out(object)
+    sleep(3)
+    uncheck 'book_'+object.class.to_s.downcase+"_ids_#{object.id}"
   end
 end
 
