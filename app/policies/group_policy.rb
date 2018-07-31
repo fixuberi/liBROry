@@ -31,7 +31,7 @@ class GroupPolicy < ApplicationPolicy
   private
 
     def have_permission?
-
+      user.permit?("group_editor") || user.permit?("admin")
     end
 
 end

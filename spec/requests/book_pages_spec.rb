@@ -4,7 +4,10 @@ RSpec.describe "Books page:" do
   subject {page}
 
   let(:user) { FactoryGirl.create(:user) }
-  before { valid_signin user }
+  before do
+    Permission.create(name: "book_editor", user: user)
+    valid_signin user
+  end
 
   let!(:author) { FactoryGirl.create(:author) }
   let!(:group) { FactoryGirl.create(:group) }

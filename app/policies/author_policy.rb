@@ -31,7 +31,7 @@ class AuthorPolicy < ApplicationPolicy
   private
 
     def have_permission?
-
+      user.permit?("admin")
     end
 
 end

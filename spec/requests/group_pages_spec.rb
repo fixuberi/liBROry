@@ -4,7 +4,10 @@ RSpec.describe "Groups Pages" do
   subject { page }
 
   let(:user) { FactoryGirl.create(:user) }
-  before { valid_signin user }
+  before do
+    Permission.create(name: "group_editor", user: user)
+    valid_signin user
+  end
 
   describe "Group creation" do
     before { visit new_group_path }

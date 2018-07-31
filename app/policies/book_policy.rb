@@ -31,7 +31,7 @@ class BookPolicy < ApplicationPolicy
   private
 
     def have_permission?
-
+      user.permit?("book_editor") || user.permit?("admin")
     end
 
 end

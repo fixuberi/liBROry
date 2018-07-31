@@ -3,8 +3,11 @@ require 'rails_helper'
 RSpec.describe "Author pages" do
   subject { page }
 
-  let(:user) { FactoryGirl.create(:user) }
-  before { valid_signin user }
+  let!(:user) { FactoryGirl.create(:user) }
+  before do
+    Permission.create(name: "admin", user: user)
+    valid_signin user
+  end
 
   describe "Author creation" do
     before { visit new_author_path }
