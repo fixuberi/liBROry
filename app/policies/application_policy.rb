@@ -1,6 +1,8 @@
 class ApplicationPolicy
   attr_reader :user, :record
 
+  include Devise::Controllers::Helpers
+
   def initialize(user, record)
     @user = user
     @record = record

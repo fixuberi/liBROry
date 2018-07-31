@@ -9,11 +9,11 @@ class GroupPolicy < ApplicationPolicy
   end
 
   def show?
-    have_permission?
+    user.present?
   end
 
   def index?
-    have_permission?
+    user.present?
   end
 
   def edit?

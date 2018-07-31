@@ -1,1 +1,3 @@
-<%= link_to "delete", item, method: :delete%>
+<% if policy(item).destroy? %>
+  <%= link_to "delete", item, method: :delete%>
+<% end %>

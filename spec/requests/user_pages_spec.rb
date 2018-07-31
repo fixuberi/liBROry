@@ -3,13 +3,16 @@ require 'rails_helper'
 RSpec.describe "User pages:" do
   subject { page }
 
-  let!(:test_user) { FactoryGirl.create(:user) }
-  before { valid_signin test_user }
+  let!(:admin_user) { FactoryGirl.create(:user) }
+  before { valid_signin admin_user }
+
   let!(:user) { FactoryGirl.create(:user) }
 
   describe "As ADMIN:" do
-    before { Permission.create(name:"admin", user: test_user) }
-
+    before do
+      Permission.create(name:"admin", user: admin_user)
+      visit root_path
+    end
     it { should have_link "Users", href: users_path }
 
     describe "Users list" do
@@ -67,29 +70,30 @@ RSpec.describe "User pages:" do
   end
 
   describe "As NON-ADMIN" do
+
     it { expect(page).not_to have_link "Users", href: users_path }
 
     describe "when GET to Users list" do
       before { visit users_path }
-      describe "should redirect with alert message" do
-        it { should have_current_path(root_path) }
-        it { should have_error_message "not authorized" }
+      it "should redirect with alert message" do
+        expect(page).to have_current_path(root_path)
+        expect(page).to have_error_message "not authorized"
       end
     end
 
-    describe "when GET to another user page" do
+    describe "when GET to user page" do
       before { visit users_path(user) }
-      describe "should redirect with alert message" do
-        it { should have_current_path(root_path) }
-        it { should have_error_message "not authorized" }
+      it "should redirect with alert message" do
+        expect(page).to have_current_path(root_path)
+        expect(page).to have_error_message "not authorized"
       end
     end
 
     describe "when GET to edit current_user permissions" do
       before { visit edit_user_path(user) }
-      describe "should redirect with alert message" do
-        it { should have_current_path(root_path) }
-        it { should have_error_message "not authorized" }
+      it "should redirect with alert message" do
+        expect(page).to have_current_path(root_path)
+        expect(page).to have_error_message "not authorized"
       end
     end
   end
