@@ -26,13 +26,16 @@ module RequestHelper
   end
 
   def check_out(object)
-    sleep(3)
     uncheck 'book_'+object.class.to_s.downcase+"_ids_#{object.id}"
+  end
+
+  def check_permission_for_editing(object)
+    check object.to_s.downcase+"_editor"
   end
 end
 
 RSpec::Matchers.define :have_error_message do |message|
   match do |page|
-    expect(page).to have_selector('div.alert.alert-danger', text: message)
+    expect(page).to have_selector('.alert.alert-danger', text: message)
   end
 end

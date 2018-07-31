@@ -15,6 +15,7 @@
       <%= link_to "Authors", authors_path %>
       <%= link_to "Groups", groups_path %>
       <%= link_to "Books", books_path %>
+      <%= link_to "Users", users_path %>
       Logged in as <strong><%= current_user.email %></strong>.
       <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
     <% else %>

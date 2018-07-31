@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    authorize @users
+    redirect_to root_path unless authorize @users
   end
 
   def show
@@ -24,25 +24,34 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     authorize @user
+    @roles = Permission::ROLES
   end
 
   def update
-    @user = User.find[params[:id]]
+    @user = User.find(params[:id])
     authorize @user
 
-    if @user.update(user_params)
-      redirect_to user_path(admin)
-      flash[:notice] = "User permissions successfully updated"
+    if params["book_editor"]
+      Permission.create(name:'book_editor', user: @user) unless @user.permit?("book_editor")
     else
-      render "edit"
+      @user.permissions.find_by(name: "book_editor").delete if @user.permit?("book_editor")
     end
+
+    if params["group_editor"]
+      Permission.create(name:'group_editor', user: @user) unless @user.permit?("group_editor")
+    else
+      @user.permissions.find_by(name: "group_editor").delete if @user.permit?("group_editor")
+    end
+      redirect_to user_path(@user)
+      flash[:notice] = "User permissions successfully updated"
+
   end
 
 
   private
 
     def user_params
-      params.require(:user).permit[permission_ids:[]]
+      params.require(:user).permit[:id, :book_editor, :group_editor]
     end
 
 

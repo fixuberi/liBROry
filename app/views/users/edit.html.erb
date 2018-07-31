@@ -1,0 +1,12 @@
+<%= form_tag(controller: "users", action: "edit", method: :put) do %>
+
+  <%= check_box_tag(:book_editor, 1, @user.permit?("book_editor")) %>
+  <%= label_tag(:book_editor, "Can edit books") %>
+
+  <%= check_box_tag(:group_editor, 1, @user.permit?("group_editor")) %>
+  <%= label_tag(:group_editor, "Can edit groups") %>
+
+  <%= submit_tag("Update permissions") %>
+
+<% end %>
+
