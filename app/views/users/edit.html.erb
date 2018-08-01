@@ -1,12 +1,33 @@
-<%= form_tag(controller: "users", action: "edit", method: :put) do %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header text-center"><h2>Editing user permissions</h2></div>
+        <div class="card-body">
 
-  <%= check_box_tag(:book_editor, 1, @user.permit?("book_editor")) %>
-  <%= label_tag(:book_editor, "Can edit books") %>
+          <%= form_tag(controller: "users", action: "edit", method: :put) do %>
 
-  <%= check_box_tag(:group_editor, 1, @user.permit?("group_editor")) %>
-  <%= label_tag(:group_editor, "Can edit groups") %>
+            <div class="row justify-content-center">
+              <div class="col-">
+                <div class="custom-control custom-checkbox">
+                  <%= check_box_tag(:book_editor, 1, @user.permit?("book_editor"), class: "custom-control-input") %>
+                  <%= label_tag(:book_editor, "Can edit books", class: "custom-control-label") %>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <%= check_box_tag(:group_editor, 1, @user.permit?("group_editor"), class: "custom-control-input") %>
+                  <%= label_tag(:group_editor, "Can edit groups", class: "custom-control-label") %>
+                </div>
+              </div>
+            </div>
 
-  <%= submit_tag("Update permissions") %>
+            <div class="action text-center">
+              <%= submit_tag("Update permissions", class: "btn btn-primary") %>
+            </div>
 
-<% end %>
+          <% end %>
 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
-<h1>Groups  list</h1>
+<h1>Groups list</h1>
 <% if policy(Group).new? %>
-  <%= link_to "New group", new_group_path%>
+  <%= link_to "New group", new_group_path %>
 <% end %>
 <ul>
   <% @groups.each do |group| %>

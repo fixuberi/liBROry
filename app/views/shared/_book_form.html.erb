@@ -1,32 +1,48 @@
 <%= form_for(@book) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
-  <%= f.label  :cover %>
-  <% if @book.cover.attached? %>
-    <%= image_tag @book.cover, class: 'cover' %>
-  <% end %>
-  <%= f.file_field :cover %>
 
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+  <div class="row justify-content-center">
 
-  <%= f.label :authors %>
-  <%= f.collection_check_boxes :author_ids, Author.order(:name), :id,:name,
-                          { checked: @book.author_ids.map(&:to_param) } do  |b| %>
-    <div class="collection-check-box">
-      <%= b.check_box %>
-      <%= b.label %>
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: "form-control" %>
     </div>
-  <% end %>
 
-  <%= f.label :groups %>
-  <%= f.collection_check_boxes :group_ids, Group.all, :id,:name,
-                               { checked: @book.group_ids.map(&:to_param) } do  |b| %>
-    <div class="collection-check-box">
-      <%= b.check_box %>
-      <%= b.label %>
+    <div class="custom-file">
+      <%= f.label :cover, class: "custom-file-label" %>
+      <%= f.file_field :cover, class: "custom-file-input" %>
     </div>
-  <% end %>
 
-  <%= f.submit action, class: "btn btn-large btn-primary" %>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-">
+      <%= f.label :authors %>
+      <%= f.collection_check_boxes :author_ids, Author.order(:name), :id, :name,
+                                   {checked: @book.author_ids.map(&:to_param)} do |b| %>
+        <div class="collection-check-box">
+          <%= b.check_box %>
+          <%= b.label %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-">
+      <%= f.label :groups %>
+      <%= f.collection_check_boxes :group_ids, Group.all, :id, :name,
+                                   {checked: @book.group_ids.map(&:to_param)} do |b| %>
+        <div class="collection-check-box">
+          <%= b.check_box %>
+          <%= b.label %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="actions text-center">
+    <%= f.submit action, class: "btn btn-large btn-primary" %>
+  </div>
 <% end %>
+
+
+
+

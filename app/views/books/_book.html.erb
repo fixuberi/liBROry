@@ -1,9 +1,9 @@
 <li id="<%= book.id %>">
-  <span class="content" ><%= book.title %></span>
+  <span class="content"><%= book.title %></span>
   <br>
   <span>Authors: <%= render 'shared/author_show_links', book: book %></span>
   <br>
   <span>Groups: <%= render 'shared/group_show_links', book: book %></span>
   <br>
-  <%= image_tag book.cover, alt: book.title, class:"cover" %>
+  <%= image_tag book.cover, alt: book.title, class: "cover" %>
 </li>

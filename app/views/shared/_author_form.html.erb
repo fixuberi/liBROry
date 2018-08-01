@@ -1,8 +1,13 @@
 <%= form_for(@author) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
+  <div class="row justify-content-center">
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-
-  <%= f.submit action, class: "btn btn-large btn-primary" %>
+  <div class="actions text-center">
+    <%= f.submit action, class: "btn btn-primary" %>
+  </div>
 <% end %>
