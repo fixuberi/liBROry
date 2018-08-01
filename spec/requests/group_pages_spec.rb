@@ -23,8 +23,7 @@ RSpec.describe "Groups Pages" do
 
         describe "error messages" do
           before { click_button "Create group" }
-          it { should have_content('error') }
-          it { should have_selector('div.alert') }
+          it { should have_selector('ul.alert') }
         end
       end
 
@@ -111,14 +110,14 @@ RSpec.describe "Groups Pages" do
 
         describe "empty name" do
           before { update_group_with '' }
-          it { should have_error_message "error" }
+          it { should have_selector('ul.alert') }
           it { expect(group.reload.name).not_to be_empty }
         end
 
         describe "name is too long" do
           let(:long_name) { 'x'*51 }
           before { update_group_with long_name }
-          it { should have_error_message "error" }
+          it { should have_selector('ul.alert') }
           it { expect(group.reload.name).not_to eq long_name  }
         end
       end

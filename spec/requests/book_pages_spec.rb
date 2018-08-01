@@ -25,8 +25,7 @@ RSpec.describe "Books page:" do
 
         describe "error messages" do
           before { click_button "Create book" }
-          it { should have_content('error') }
-          it { should have_selector('div.alert') }
+          it { should have_selector('ul.alert') }
         end
       end
 
@@ -122,14 +121,14 @@ RSpec.describe "Books page:" do
 
         describe "empty title" do
           before { update_book_with '' }
-          it { should have_error_message "error" }
+          it { should have_selector('ul.alert') }
           it { expect(book.reload.title).not_to be_empty }
         end
 
         describe "title is too long" do
           let(:long_title) { 'x'*51 }
           before { update_book_with long_title }
-          it { should have_error_message "error" }
+          it { should have_selector('ul.alert') }
           it { expect(book.reload.title).not_to eq long_title  }
         end
 

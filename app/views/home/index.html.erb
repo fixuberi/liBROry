@@ -1,3 +1,49 @@
-<ol class="posts">
-  <%= render partial: 'shared/feed_item', collection: @feed_items %>
+<ol >
+  <% @groups.each do |group| %>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h2><%= group.name %></h2>
+            </div>
+            <div class="card-body">
+
+              <ol class="list-group">
+                <% group.books.each do |book| %>
+
+                  <li id="<%= book.id %>" class="list-group-item">
+                      <div class="row">
+                      <div class="col-">
+                        <div class="cover">
+                          <%= image_tag book.cover, alt: book.title, class:"img-fluid"%>
+                        </div>
+                      </div>
+
+                      <div class="col-6">
+                        <div class="content">
+                          <h2><%= link_to book.title, book_path(book), class:"book-title" %></h2>
+                          <div class="references">
+                            <span >Authors:</span> <%= render 'shared/author_show_links', book: book %>
+                            <span >Groups:</span> <%= render 'shared/group_show_links', book: book %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+                <% end %>
+              </ol>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </ol>
+
+
+
+
+

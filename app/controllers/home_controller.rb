@@ -3,6 +3,6 @@ class HomeController < ApplicationController
 
 
   def index
-    @groups = Group.all.with_books
+    @groups = Group.eager_load(:books)
   end
 end
