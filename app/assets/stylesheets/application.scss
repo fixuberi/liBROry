@@ -13,3 +13,20 @@
 
  */
 @import "bootstrap";
+@import "books";
+@import "authors";
+@import "groups";
+@import "users";
+
+
+
+.btn{
+  a{
+    color: #DADADA;
+    font-weight: bold;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+}
+

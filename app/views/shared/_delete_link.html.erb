@@ -1,3 +1,6 @@
 <% if policy(item).destroy? %>
-  <%= link_to "delete", item, method: :delete %>
+  <button type="button" class="btn btn-danger btn-sm">
+    <%= link_to "delete", item, method: :delete %>
+  </button>
 <% end %>
+

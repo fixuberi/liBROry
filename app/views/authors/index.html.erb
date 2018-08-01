@@ -1,9 +1,12 @@
 <h1>Authors list</h1>
-<%= link_to "New author", new_author_path %>
-<ul>
+<button type="button" class="btn btn-primary btn-sm">
+  <%= link_to "New author", new_author_path %>
+</button>
+
+<ol class="list-group">
   <% @authors.each do |author| %>
     <li>
-      <%= link_to author.name, author_path(author) %>
+      <%= link_to author.name, author_path(author), class: "list-group-item" %>
     </li>
   <% end %>
-</ul>
+</ol>

@@ -3,5 +3,6 @@ class HomeController < ApplicationController
 
 
   def index
+    @groups = Group.all.with_books
   end
 end

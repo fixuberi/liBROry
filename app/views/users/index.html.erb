@@ -1,8 +1,9 @@
 <h1>Users list</h1>
-<ul>
+
+<ol class="list-group">
   <% @users.each do |user| %>
     <li>
-      <%= link_to user.email, user_path(user) %>
+      <%= link_to user.email, user_path(user), class: "list-group-item" %>
     </li>
   <% end %>
-</ul>
+</ol>

@@ -1,16 +1,20 @@
-<div class="row justify-content-center">
-  <div class="col-sm-3">
-    <div style="width: 200px; height: 250px">
-      <%= image_tag @book.cover, class: 'img-fluid' %>
+<div class="row">
+  <div class="col-">
+    <div class="cover">
+      <%= image_tag @book.cover, alt: @book.title, class:"img-fluid"%>
     </div>
   </div>
 
-  <div class="col-sm-3">
-    <h1><%= @book.title %></h1>
-    <%= render 'shared/edit_link', item: @book %>
-    <%= render 'shared/delete_link', item: @book %>
-
-    <span>Authors: <%= render 'shared/author_show_links', book: @book %></span>
-    <span>Groups: <%= render 'shared/group_show_links', book: @book %></span>
+  <div class="col-6">
+    <div class="content">
+      <span ><h2><%= @book.title %></h2></span>
+      <div class="references">
+        <span >Authors:</span> <%= render 'shared/author_show_links', book: @book %>
+        <span >Groups:</span> <%= render 'shared/group_show_links', book: @book %>
+      </div>
+    </div>
   </div>
 </div>
+
+<%= render 'shared/edit_link', item: @book %>
+<%= render 'shared/delete_link', item: @book %>

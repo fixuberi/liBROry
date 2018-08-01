@@ -1,3 +1,5 @@
 <% if policy(item).edit? %>
-  <%= link_to "edit", send("edit_#{controller_name.singularize.downcase}_path", item) %>
+  <button type="button" class="btn btn-primary btn-sm">
+    <%= link_to "edit", send("edit_#{controller_name.singularize.downcase}_path", item) %>
+  </button>
 <% end %>

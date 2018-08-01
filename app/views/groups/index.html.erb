@@ -1,11 +1,14 @@
 <h1>Groups list</h1>
 <% if policy(Group).new? %>
-  <%= link_to "New group", new_group_path %>
+  <button type="button" class="btn btn-primary btn-sm">
+    <%= link_to "New group", new_group_path %>
+  </button>
 <% end %>
-<ul>
+
+<ol class="list-group">
   <% @groups.each do |group| %>
     <li>
-      <%= link_to group.name, group_path(group) %>
+      <%= link_to group.name, group_path(group), class: "list-group-item" %>
     </li>
   <% end %>
-</ul>
+</ol>

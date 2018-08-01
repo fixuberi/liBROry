@@ -3,5 +3,24 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .cover {
   width: 200px;
-  height: 250px;
+  img{
+
+    height: 250px;
+  }
+}
+
+.references {
+
+    span {
+    display: block;
+    color: #666666;
+  }
+}
+
+
+.book-title {
+  color:#2E2F30;
+  &:hover{
+    text-decoration: none;
+  }
 }
