@@ -47,7 +47,7 @@ group :development, :test do
   gem "rspec-rails"
   gem 'database_cleaner'
   gem 'pundit'
-
+  gem 'bootstrap', '~> 4.0'
 
 end
 

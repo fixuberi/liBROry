@@ -1,8 +1,14 @@
-<%= render 'shared/edit_link', item: @book %>
-<%= render 'shared/delete_link', item: @book %>
-<br>
-<h1><%= @book.title %></h1>
-<%= image_tag @book.cover, alt: @book.title, class:"cover" %>
+<div class="row">
+  <div class="col-sm-6">
+    <%= image_tag @book.cover, alt: @book.title, class:"cover" %>
+  </div>
 
-<span>Authors: <%= render 'shared/author_show_links', book: @book %></span>
-<span>Groups: <%= render 'shared/group_show_links', book: @book %></span>
+  <div class="col-sm-6">
+    <h1><%= @book.title %></h1>
+    <%= render 'shared/edit_link', item: @book %>
+    <%= render 'shared/delete_link', item: @book %>
+
+    <span>Authors: <%= render 'shared/author_show_links', book: @book %></span>
+    <span>Groups: <%= render 'shared/group_show_links', book: @book %></span>
+  </div>
+</div>
