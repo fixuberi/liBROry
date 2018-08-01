@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+  <%= link_to "liBROry", root_path, class: "navbar-brand" %>
+
+
+  <% if user_signed_in? %>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <%= link_to "Authors", authors_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Groups", groups_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Books", books_path, class: "nav-link" %>
+      </li>
+
+      <% if policy(User).index? %>
+        <li class="nav-item ">
+          <%= link_to "Users", users_path, class: "nav-link" %>
+        </li>
+      <% end %>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+          <span class="navbar-text ml-auto">
+            Logged in as <strong><%= current_user.email %></strong>.
+          </span>
+      <li class="nav-item">
+        <%= link_to "Edit profile", edit_user_registration_path, :class => 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'nav-link' %>
+      </li>
+    </ul>
+
+  <% else %>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <%= link_to "Sign up", new_user_registration_path, :class => 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Login", new_user_session_path, method: :delete, :class => 'nav-link' %>
+      </li>
+    </ul>
+
+  <% end %>
+</nav>
