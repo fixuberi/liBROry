@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     authorize @user
 
     if @user.destroy
-      flash[:success] = "User deleted"
+      flash[:notice] = "User deleted"
       redirect_to users_path
     end
   end
