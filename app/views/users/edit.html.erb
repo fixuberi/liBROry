@@ -10,11 +10,11 @@
             <div class="row justify-content-center">
               <div class="col-">
                 <div class="custom-control custom-checkbox">
-                  <%= check_box_tag(:book_editor, 1, @user.permit?("book_editor"), class: "custom-control-input") %>
+                  <%= check_box_tag(:book_editor, true, @user.book_editor?, class: "custom-control-input") %>
                   <%= label_tag(:book_editor, "Can edit books", class: "custom-control-label") %>
                 </div>
                 <div class="custom-control custom-checkbox">
-                  <%= check_box_tag(:group_editor, 1, @user.permit?("group_editor"), class: "custom-control-input") %>
+                  <%= check_box_tag(:group_editor, true, @user.group_editor?, class: "custom-control-input") %>
                   <%= label_tag(:group_editor, "Can edit groups", class: "custom-control-label") %>
                 </div>
               </div>

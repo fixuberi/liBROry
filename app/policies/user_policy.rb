@@ -22,8 +22,8 @@ class UserPolicy < ApplicationPolicy
 
   private
 
-    def have_permission?
-      user.permit?("admin")
-    end
+  def have_permission?
+    user.admin?
+  end
 
 end

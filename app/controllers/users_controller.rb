@@ -24,36 +24,23 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     authorize @user
-    @roles = Permission::ROLES
   end
 
   def update
     @user = User.find(params[:id])
     authorize @user
 
-    if params["book_editor"]
-      Permission.create(name:'book_editor', user: @user) unless @user.permit?("book_editor")
-    else
-      @user.permissions.find_by(name: "book_editor").delete if @user.permit?("book_editor")
-    end
+    @user.permission.update(book_editor: params['book_editor'].present?, group_editor: params['group_editor'].present?)
 
-    if params["group_editor"]
-      Permission.create(name:'group_editor', user: @user) unless @user.permit?("group_editor")
-    else
-      @user.permissions.find_by(name: "group_editor").delete if @user.permit?("group_editor")
-    end
-      redirect_to user_path(@user)
-      flash[:notice] = "User permissions successfully updated"
+    redirect_to user_path(@user)
+    flash[:notice] = "User permissions successfully updated"
 
   end
 
-
   private
 
-    def user_params
-      params.require(:user).permit[:id, :book_editor, :group_editor]
-    end
-
-
+  def user_params
+    params.require(:user).permit[:id, :book_editor, :group_editor]
+  end
 
 end

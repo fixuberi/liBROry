@@ -70,13 +70,16 @@ ActiveRecord::Schema.define(version: 2018_07_31_091757) do
 
   create_table "permissions", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "name"
+    t.boolean "group_editor", default: false
+    t.boolean "book_editor", default: false
+    t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_permissions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "name"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
